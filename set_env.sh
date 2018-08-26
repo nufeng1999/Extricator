@@ -29,3 +29,8 @@ my_echo(){  echo -e "$1" >>$BUILD_LOG;}
 my_echo  "----------------test--------------------"
 checkret(){ if [ "$?" -ne "0" ]; then   echo -e "$1 FAIL";   echo -e "$1  FAIL." >>$BUILD_LOG; exit 1; else   echo -e "$1 SUCC"; echo -e "$1 SUCC." >>$BUILD_LOG;  fi }
 execcmd_checkret(){ $1 ; checkret "$1" ; }
+unset_crossenv(){
+    unset CC
+    unset LD
+    unset AS
+}

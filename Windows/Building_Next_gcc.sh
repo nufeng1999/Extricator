@@ -10,7 +10,7 @@ while [ -h "$SOURCE"  ]; do # resolve $SOURCE until the file is no longer a syml
 done
 EXTRICATORDIR="$( cd -P "$( dirname "$SOURCE"  )" && pwd  )"
 source $EXTRICATORDIR/set_env.sh
-export PATH=$PATH:$INSTALLDIR/bin
+export PATH=$ARMLINUXGCC/bin:$PATH
 my_echo  "-------------------------------"
 my_echo  "Building The Next gcc 非 HOST,所以不用设置 HOST " 
 my_echo  "-------------------------------"

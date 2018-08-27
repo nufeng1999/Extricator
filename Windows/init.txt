@@ -11,3 +11,4 @@ HOST=x86_64-w64-mingw32
 TARGETMACH=arm-none-linux-gnueabi
 TARDIR=/root/mytar
 WORKDIR=/root/workbench
+ARMLINUXGCC=/arm-linux/arm-linux-gcc-8.2.0

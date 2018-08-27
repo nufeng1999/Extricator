@@ -10,7 +10,7 @@ while [ -h "$SOURCE"  ]; do # resolve $SOURCE until the file is no longer a syml
 done
 EXTRICATORDIR="$( cd -P "$( dirname "$SOURCE"  )" && pwd  )"
 source $EXTRICATORDIR/set_env.sh
-export PATH=/arm-linux/arm-linux-gcc-8.2.0/bin:$PATH
+export PATH=$ARMLINUXGCC/bin:$PATH
 my_echo  "-------------------------------"
 my_echo  "Building The Final gcc "
 my_echo  "-------------------------------"
@@ -32,9 +32,6 @@ make
 checkret "Build zlib make "
 make install
 checkret "Build zlib make install"
-mkdir -pv $BUILDDIR/final-gcc-2/mpfr/src/.libs
-cd $BUILDDIR/final-gcc-2/mpfr/src/.libs
-ln -sf $TARDIR/zlib/lib/libz.a libz.a 
 
 echo *** delete gcc-x.x.x and re-install it ***  
 cd $SRCDIR
@@ -58,6 +55,9 @@ rm -rf *
 echo "libc_cv_forced_unwind=yes" > config.cache  
 echo "libc_cv_c_cleanup=yes" >> config.cache
 
+mkdir -pv $BUILDDIR/final-gcc-2/mpfr/src/.libs
+cd $BUILDDIR/final-gcc-2/mpfr/src/.libs
+ln -sf $TARDIR/zlib/lib/libz.a libz.a 
 
 cd $BUILDDIR/final-gcc-2  
 echo 仅仅支持C,C++的配置

@@ -1,7 +1,7 @@
 #! /bin/sh
 export EXTRICATORDIR=$(cd $(dirname $0); pwd)
 source $EXTRICATORDIR/set_env.sh
-export PATH=$INSTALLDIR/bin:$PATH  
+export PATH=$PATH:$INSTALLDIR/bin
 my_echo  "-------------------------------"
 my_echo  " Building glibc  "
 echo 		Fixes error "In function _Unwind_Resume: undefined reference to libgcc_s_resume"

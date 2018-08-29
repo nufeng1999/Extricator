@@ -14,6 +14,7 @@ source $EXTRICATORDIR/set_env.sh
 echo -------------------------------
 echo Gather the Sources
 echo -------------------------------
+mkdir -pv $TARDIR
 cd $TARDIR
 #wget http://ftp.gnu.org/gnu/gcc/gcc-$GCCVER/gcc-$GCCVER.tar.gz -q -o gcc-$GCCVER.tar.gz
 execcmd_checkret "wget http://ftp.gnu.org/gnu/gcc/gcc-$GCCVER/gcc-$GCCVER.tar.gz -q -o gcc-$GCCVER.tar.gz"

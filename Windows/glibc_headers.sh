@@ -19,7 +19,7 @@ cd $BUILDDIR/libc
 export PATH=$INSTALLDIR/bin:$PATH  
 echo "libc_cv_forced_unwind=yes" > config.cache
 echo "libc_cv_c_cleanup=yes" >> config.cache
-export PATH=$INSTALLDIR/bin:$PATH
+export PATH=$ARMLINUXGCC/bin:$PATH
 export CROSS=arm-none-linux-gnueabi
 export CC=${CROSS}-gcc
 export LD=${CROSS}-ld

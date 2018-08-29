@@ -51,7 +51,7 @@ echo ln -sf $SRCDIR/mpc-$MPCVER mpc
 
 mkdir -pv $BUILDDIR/final-gcc-2  
 cd $BUILDDIR/final-gcc-2  
-rm -rf *
+#rm -rf *
 echo "libc_cv_forced_unwind=yes" > config.cache  
 echo "libc_cv_c_cleanup=yes" >> config.cache
 
@@ -60,14 +60,16 @@ cd $BUILDDIR/final-gcc-2/mpfr/src/.libs
 ln -sf $TARDIR/zlib/lib/libz.a libz.a 
 
 cd $BUILDDIR/final-gcc-2  
-echo 仅仅支持C,C++的配置
+export GDC=$GDCDIR/arm-unknown-linux-gnueabihf/bin/arm-unknown-linux-gnueabihf-gdc
+export GDC_FOR_BUILD=$GDCDIR/x86_64-unknown-linux-gnu/bin/gdc
+
+echo 支持C,C++的配置
 CC_FOR_BUILD=$BUILDMACH-gcc  \
 CXX_FOR_BUILD=$BUILDMACH-g++  \
 GCC_FOR_BUILD=$BUILDMACH-gcc  \
 GCJ_FOR_BUILD=$BUILDMACH-gcj  \
 GFORTRAN_FOR_BUILD=$BUILDMACH-gfortran  \
 GOC_FOR_BUILD=$BUILDMACH-gccgo  \
-GDC_FOR_BUILD=$BUILDMACH-gdc  \
 AR_FOR_BUILD=ar \
 AS_FOR_BUILD=as \
 DLLTOOL_FOR_BUILD=$BUILDMACH-dlltool \
@@ -87,7 +89,6 @@ GCC=$HOST-gcc  \
 GCJ=$HOST-gcj  \
 GFORTRAN=$HOST-gfortran  \
 GOC=$HOST-gccgo  \
-GDC=$HOST-gdc  \
 AR=$HOST-ar \
 AS=$HOST-as \
 DLLTOOL=$HOST-dlltool \
@@ -127,7 +128,7 @@ $GCC_SRC/configure \
 --target=$TARGETMACH \
 --prefix=$INSTALLDIR \
 --with-sysroot=$SYSROOTDIR \
---enable-languages=c,c++ \
+--enable-languages=c,c++,d \
 --with-gnu-as --with-gnu-ld \
 --disable-multilib  \
 --disable-sjlj-exceptions \
@@ -152,9 +153,9 @@ $GCC_SRC/configure \
 --program-prefix=arm-linux-gnu- \
 --with-isl \
 --with-system-zlib \
---with-tune=arm926ej-s \
---with-arch=armv5te \
---with-float=soft \
+--with-tune=$TUNE \
+--with-arch=$ARCH \
+--with-float=$FLOAT \
 CFLAGS="-fvisibility=default" 
 checkret "Building The Final gcc  configure "
 
@@ -210,7 +211,7 @@ $GCC_SRC/configure \
 --without-cloog \
 --without-isl \
 --disable-nls \
---enable-languages=c,c++,d \
+--enable-languages=c,c++ \
 --enable-checking=release \
 --enable-__cxa_atexit \
 --enable-threads=posix \
@@ -229,42 +230,42 @@ my_echo  "-------------------------------"
 my_echo  "             link "
 my_echo  "-------------------------------"
 
-ln -sf arm-none-linux-gnueabi-addr2line         arm-linux-addr2line  
-ln -sf arm-none-linux-gnueabi-ar                arm-linux-ar         
-ln -sf arm-none-linux-gnueabi-as                arm-linux-as         
-ln -sf arm-none-linux-gnueabi-c++filt           arm-linux-c++filt    
-ln -sf arm-none-linux-gnueabi-cpp               arm-linux-cpp        
-ln -sf arm-none-linux-gnueabi-elfedit           arm-linux-elfedit    
-ln -sf arm-none-linux-gnueabi-gcc               arm-linux-gcc        
-ln -sf arm-none-linux-gnueabi-gcc-$GCCVER         arm-linux-gcc-$GCCVER  
-ln -sf arm-none-linux-gnueabi-gcc-ar            arm-linux-gcc-ar     
-ln -sf arm-none-linux-gnueabi-gcc-nm            arm-linux-gcc-nm     
-ln -sf arm-none-linux-gnueabi-gcc-ranlib        arm-linux-gcc-ranlib 
-ln -sf arm-none-linux-gnueabi-gcov              arm-linux-gcov       
-ln -sf arm-none-linux-gnueabi-gcov-dump         arm-linux-gcov-dump  
-ln -sf arm-none-linux-gnueabi-gcov-tool         arm-linux-gcov-tool  
-ln -sf arm-none-linux-gnueabi-gprof             arm-linux-gprof      
-ln -sf arm-none-linux-gnueabi-ld                arm-linux-ld         
-ln -sf arm-none-linux-gnueabi-ld.bfd            arm-linux-ld.bfd     
-ln -sf arm-none-linux-gnueabi-nm                arm-linux-nm         
-ln -sf arm-none-linux-gnueabi-objcopy           arm-linux-objcopy    
-ln -sf arm-none-linux-gnueabi-objdump           arm-linux-objdump    
-ln -sf arm-none-linux-gnueabi-ranlib            arm-linux-ranlib     
-ln -sf arm-none-linux-gnueabi-readelf           arm-linux-readelf    
-ln -sf arm-none-linux-gnueabi-size              arm-linux-size       
-ln -sf arm-none-linux-gnueabi-strings           arm-linux-strings    
-ln -sf arm-none-linux-gnueabi-strip             arm-linux-strip      
-ln -sf arm-none-linux-gnueabi-c++               arm-linux-c++
-ln -sf arm-none-linux-gnueabi-g++               arm-linux-g++
-ln -sf arm-linux-gnu-gcc-ar                arm-linux-ar         
-ln -sf arm-linux-gnu-gcc-nm                arm-linux-nm         
-ln -sf arm-linux-gnu-gcc-ranlib            arm-linux-ranlib     
-ln -sf arm-linux-gnu-c++               arm-linux-c++
-ln -sf arm-linux-gnu-g++               arm-linux-g++
-ln -sf arm-linux-gnu-cpp               arm-linux-cpp        
-ln -sf arm-linux-gnu-gcc               arm-linux-gcc        
-ln -sf arm-linux-gnu-gcov              arm-linux-gcov
-ln -sf arm-linux-gcov-dump             arm-linux-dump     
+ln -sf arm-none-linux-gnueabi-addr2line.exe         arm-linux-addr2line  
+ln -sf arm-none-linux-gnueabi-ar.exe                arm-linux-ar         
+ln -sf arm-none-linux-gnueabi-as.exe                arm-linux-as         
+ln -sf arm-none-linux-gnueabi-c++filt.exe           arm-linux-c++filt    
+ln -sf arm-none-linux-gnueabi-cpp.exe               arm-linux-cpp        
+ln -sf arm-none-linux-gnueabi-elfedit.exe           arm-linux-elfedit    
+ln -sf arm-none-linux-gnueabi-gcc.exe               arm-linux-gcc        
+ln -sf arm-none-linux-gnueabi-gcc-$GCCVER.exe       arm-linux-gcc-$GCCVER  
+ln -sf arm-none-linux-gnueabi-gcc-ar.exe            arm-linux-gcc-ar     
+ln -sf arm-none-linux-gnueabi-gcc-nm.exe            arm-linux-gcc-nm     
+ln -sf arm-none-linux-gnueabi-gcc-ranlib.exe        arm-linux-gcc-ranlib 
+ln -sf arm-none-linux-gnueabi-gcov.exe              arm-linux-gcov       
+ln -sf arm-none-linux-gnueabi-gcov-dump.exe         arm-linux-gcov-dump  
+ln -sf arm-none-linux-gnueabi-gcov-tool.exe         arm-linux-gcov-tool  
+ln -sf arm-none-linux-gnueabi-gprof.exe             arm-linux-gprof      
+ln -sf arm-none-linux-gnueabi-ld.exe                arm-linux-ld         
+ln -sf arm-none-linux-gnueabi-ld.bfd                arm-linux-ld.bfd     
+ln -sf arm-none-linux-gnueabi-nm.exe                arm-linux-nm         
+ln -sf arm-none-linux-gnueabi-objcopy.exe           arm-linux-objcopy    
+ln -sf arm-none-linux-gnueabi-objdump.exe           arm-linux-objdump    
+ln -sf arm-none-linux-gnueabi-ranlib.exe            arm-linux-ranlib     
+ln -sf arm-none-linux-gnueabi-readelf.exe           arm-linux-readelf    
+ln -sf arm-none-linux-gnueabi-size.exe              arm-linux-size       
+ln -sf arm-none-linux-gnueabi-strings.exe           arm-linux-strings    
+ln -sf arm-none-linux-gnueabi-strip.exe             arm-linux-strip      
+ln -sf arm-none-linux-gnueabi-c++.exe               arm-linux-c++
+ln -sf arm-none-linux-gnueabi-g++.exe               arm-linux-g++
+ln -sf arm-linux-gnu-gcc-ar.exe                     arm-linux-ar         
+ln -sf arm-linux-gnu-gcc-nm.exe                     arm-linux-nm         
+ln -sf arm-linux-gnu-gcc-ranlib.exe                 arm-linux-ranlib     
+ln -sf arm-linux-gnu-c++.exe                        arm-linux-c++
+ln -sf arm-linux-gnu-g++.exe                        arm-linux-g++
+ln -sf arm-linux-gnu-cpp.exe                        arm-linux-cpp        
+ln -sf arm-linux-gnu-gcc.exe                        arm-linux-gcc        
+ln -sf arm-linux-gnu-gcov.exe                       arm-linux-gcov
+ln -sf arm-linux-gcov-dump.exe                      arm-linux-dump     
 
 my_echo  "------------------------------------"
 my_echo  "                OK"

@@ -1,0 +1,3 @@
+生成 Windows 版的交叉编译工具
+为支持D语言，下载GDC补丁包，并为GCC源代码打上补丁
+git clone --branch=gdc-8-stable  https://github.com/D-Programming-GDC/GDC.git
